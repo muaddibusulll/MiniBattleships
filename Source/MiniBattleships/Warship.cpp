@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "Warship.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/DecalComponent.h"
@@ -9,7 +8,6 @@
 #include "WarshipFloatingPawnMovement.h"
 #include "SelectableComponent.h"
 #include "Projectile.h"
-
 
 AWarship::AWarship()
 {
@@ -44,7 +42,6 @@ void AWarship::BeginPlay()
 void AWarship::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 bool AWarship::bIsDead() const
@@ -112,6 +109,7 @@ void AWarship::UpdateMove()
 		if (HitResult.bBlockingHit)
 		{
 			Velocity = FVector::ZeroVector;
+			bIsLaunching = false; // Stop launching if a collision is detected
 		}
 	}
 }
@@ -127,5 +125,5 @@ void AWarship::DamageTaken(AActor* DamagedActor, float Damage, const UDamageType
 		DetachFromControllerPendingDestroy();
 		ShipMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		BoxCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-		}
 	}
+}
